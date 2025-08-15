@@ -23,24 +23,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
-
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="preloader"></div>
 
 <!-- ======= Navbar ======= -->
 <header class="navbar">
   <div class="nav-container">
     <div class="nav-left">
       <!-- Logo -->
-      <a href="#" class="nav-logo-text special-stack">
-        <span>
-          Mist&nbsp;<span class="logo-valley">Valley</span>
-        </span>
-        <span class="nav-logo-sub">Resorts</span>
-      </a>
+      <a href="#home" id="logoLink" class="nav-logo-text special-stack">
+    <span>
+        Mist&nbsp;<span class="logo-valley">Valley</span>
+    </span>
+    <span class="nav-logo-sub">Resorts</span>
+</a>
+
     </div>
 
     <div class="nav-right">
@@ -119,23 +121,90 @@
 
 <section class="about-section" id="about">
   <div class="about-bg"></div>
+  
   <div class="about-main-row">
+    
     <div class="about-text-container">
-      <!-- All your about-left content here -->
-      <div class="about-subtitle">ABOUT US</div>
-      <h2 class="about-title">Wild Encounters at Mist Valley Resort</h2>
-      <div class="about-highlight">Where the majesty of wildlife blends with serene luxury.</div>
-      <div class="about-desc">Nestled on the edge of untamed wilderness, Mist Valley delivers captivating wildlife experiences and ultimate relaxation. Wake up to the distant calls of exotic birds, watch the mist roll over the valley at dawn, and embark on guided adventures that bring you face-to-face with the wonders of the wild. After a day of exploration, unwind in our luxurious suites, indulge in authentic local cuisine, and let the serenity of the landscape renew your spirit. At Mist Valley, every moment is a story waiting to be told.</div>
-      <div class="about-owner">K Inbam... the Owner</div>
+      <div class="about-subtitle scroll-animate scroll-delay-1">ABOUT US</div>
+      
+      <h2 class="about-title scroll-animate scroll-delay-2">
+        Wild Encounters at Mist Valley Resort
+      </h2>
+      
+      <div class="about-highlight scroll-animate scroll-delay-3">
+        Where the majesty of wildlife blends with serene luxury.
+      </div>
+      
+      <div class="about-desc scroll-animate scroll-delay-4">
+        Nestled on the edge of untamed wilderness, Mist Valley delivers captivating wildlife experiences and ultimate relaxation. 
+        Wake up to the distant calls of exotic birds, watch the mist roll over the valley at dawn, 
+        and embark on guided adventures that bring you face-to-face with the wonders of the wild. 
+        After a day of exploration, unwind in our luxurious suites, indulge in authentic local cuisine, 
+        and let the serenity of the landscape renew your spirit. 
+        At Mist Valley, every moment is a story waiting to be told.
+      </div>
+      
+      <div class="about-owner scroll-animate scroll-delay-5">
+        K Inbam... the Owner
+      </div>
     </div>
-    <div class="about-img-stack">
+    
+    <div class="about-img-stack scroll-animate scroll-delay-6">
       <img class="about-img-main" src="assets/images/whole2.jpg" alt="Main Room" />
       <img class="about-img-float" src="assets/images/whole1.jpg" alt="Detail" />
     </div>
+    
   </div>
 </section>
 
 
+
+<section class="luxury-banner" id="luxury-banner">
+    <video class="luxury-video" autoplay muted loop playsinline>
+        <source src="assets/video/banner (2).mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <div class="luxury-overlay"></div>
+
+    <div class="luxury-content">
+        <h2>Luxury Experience</h2>
+        <p>Where comfort meets elegance in the heart of nature</p>
+    </div>
+</section>
+
+<section class="rooms-section">
+  <h2 class="rooms-title">Rooms &amp; Suites</h2>
+  <div class="rooms-list-cm">
+    <!-- Large Box -->
+    <div class="room-card-large">
+      <img src="assets/images/tree_house/1.jpg" alt="Junior Suite" class="room-img" />
+      <div class="room-overlay">
+        <div class="room-name">Junior Suite</div>
+        <a href="/rooms" class="room-readmore" tabindex="0">Read More</a>
+      </div>
+    </div>
+    <!-- Small Box 1 -->
+    <div class="room-card-small">
+      <img src="assets/images/bamboo_house/2.jpg" alt="Deluxe Room" class="room-img" />
+      <div class="room-overlay">
+        <div class="room-name">Deluxe Room</div>
+        <a href="/rooms" class="room-readmore" tabindex="0">Read More</a>
+      </div>
+    </div>
+    <!-- Small Box 2 + Button container -->
+    <div class="rooms-third-column">
+      <div class="room-card-small">
+        <img src="assets/images/cottages/whole1.jpg" alt="Superior Room" class="room-img" />
+        <div class="room-overlay">
+          <div class="room-name">Superior Room</div>
+          <a href="/rooms" class="room-readmore" tabindex="0">Read More</a>
+        </div>
+      </div>
+      <a href="/rooms" class="btn-view-all">View All Rooms</a>
+    </div>
+  </div>
+</section>
 
 
 

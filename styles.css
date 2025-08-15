@@ -1,3 +1,22 @@
+/* Preloader default (covers the screen at start) */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #2e2929; /* black screen */
+  z-index: 9999;
+  transform: translateY(0); /* starts in place */
+  transition: transform 0.8s ease; /* smooth slide up */
+}
+
+/* When hidden → slides up out of view */
+#preloader.hide {
+  transform: translateY(-100%);
+}
+
+
 /* ===== NAVIGATION BAR ===== */
 .navbar {
   position: fixed;
@@ -753,7 +772,7 @@
 }
 
 .about-img-main:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
@@ -768,6 +787,7 @@
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1024px) {
   .about-main-row {
+    display: flex;
     flex-direction: column;
     gap: 3vw;
     max-width: 98vw;
@@ -775,10 +795,13 @@
     padding: 0 5%;
   }
   .about-img-stack {
+    order: -1 !important;
     width: 80%;
     max-width: 345px;
     margin: 0 auto;
     left: 0;
+    transform: translateY(-15px);
+    transition: transform 0.35s ease;
   }
   .about-text-container {
     margin-top: 0;
@@ -877,4 +900,422 @@
 .hero-overlay[style*="hidden"] {
   opacity: 0;
   transition-delay: 0s;
+}
+/* Initial hidden state for scroll animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Visible state when in viewport */
+.scroll-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional: Stagger animation timings */
+.scroll-delay-1 { transition-delay: 0.1s; }
+.scroll-delay-2 { transition-delay: 0.3s; }
+.scroll-delay-3 { transition-delay: 0.5s; }
+.scroll-delay-4 { transition-delay: 0.7s; }
+.scroll-delay-5 { transition-delay: 0.9s; }
+.scroll-delay-6 { transition-delay: 1.1s; }
+
+
+
+
+/* ==== Luxury Banner Section ==== */
+/* Luxury Banner container */
+.luxury-banner {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Adjust as you like */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.7);             /* Start smaller for bigger impact */
+  transition: transform 0.5s ease-out; /* Faster scale-up */
+  border-radius: 20px;               /* Rounded corners when small */
+  overflow: hidden;
+}
+
+/* Background video stays full size */
+.luxury-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay */
+.luxury-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* Text styling */
+.luxury-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+  
+  opacity: 0;                      /* Start hidden */
+  transform: translateY(15px);     /* Slight slide up */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: 0s;            /* Initially no delay */
+}
+
+/* Final state when animate class added */
+.luxury-banner.animate {
+  transform: scale(1);             /* Scale to full size */
+  border-radius: 0;                /* Remove rounding when full size */
+}
+
+/* Text appears only after scaling finishes */
+.luxury-banner.animate .luxury-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;          /* Delay text fade until after scale */
+  transition-duration: 1.2s;
+}
+
+
+.luxury-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.luxury-content p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto;
+}
+@media (max-width: 1024px) {
+  .luxury-banner,
+  .luxury-overlay {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Also ensure the video container or parent does not add a black background */
+  .luxury-video {
+    background: transparent !important;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .luxury-banner {
+    background: transparent !important;
+    height: 40vh;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: hidden;
+  }
+
+  .luxury-overlay {
+    background: transparent !important;
+  }
+}
+
+
+
+.rooms-section {
+  width: 100%;
+  background:#ffffff;
+  padding: 40px 0 40px 0;
+}
+
+.rooms-title {
+  font-family: "DM Serif Text", serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #232323;
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+  padding-left: 2.89cm;
+  padding-top: 4px;
+}
+
+.rooms-list-cm {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.52cm;
+  justify-content: center;
+}
+
+.room-card-large,
+.room-card-small {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(20, 20, 20, 0.22), 0 1.5px 8px rgba(0,0,0,0.13);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  transition: box-shadow 0.32s cubic-bezier(.39, .575, .565, 1);
+}
+
+.room-card-large:hover,
+.room-card-small:hover,
+.room-card-large:focus,
+.room-card-small:focus {
+  box-shadow: 0 20px 48px rgba(33, 33, 33, 0.22);
+}
+
+/* Bottom black gradient fade background */
+.room-card-large::before,
+.room-card-small::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4.5cm; /* can be adjusted */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  pointer-events: none;
+  transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  border-radius: 0 0 8px 8px;
+}
+
+.room-card-large:hover::before,
+.room-card-large:focus::before,
+.room-card-small:hover::before,
+.room-card-small:focus::before {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+
+.room-card-large {
+  
+  width: 16.9cm;
+  height: 13.3cm;
+}
+
+.room-card-small {
+  width: 8.09cm;
+  height: 13.3cm;
+}
+
+.room-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(.39, .575, .565, 1);
+  border-radius: 8px;
+}
+
+.room-card-large:hover .room-img,
+.room-card-small:hover .room-img,
+.room-card-large:focus .room-img,
+.room-card-small:focus .room-img {
+  transform: scale(1.06);
+  filter: brightness(0.95);
+}
+
+.room-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 2;
+  background: transparent;
+  
+  /* Start slightly lower */
+  transform: translateY(12px);
+  transition: transform 0.3s ease;
+}
+
+.room-card-large:hover .room-overlay,
+.room-card-large:focus .room-overlay,
+.room-card-small:hover .room-overlay,
+.room-card-small:focus .room-overlay {
+  transform: translateY(-40px);
+}
+
+.room-name {
+  font-size: 1.9rem;
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 0.02em;
+  opacity: 0.98;
+  margin-bottom: 0;
+  transition: color 0.3s ease;
+}
+
+.room-readmore {
+  margin-top: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  position: relative;
+  padding-bottom: 4px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.05s;
+}
+
+.room-readmore::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  height: 2px;
+  width: 90%;
+  background: #fff;
+  border-radius: 2px;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(.39,.575,.565,1), background 0.26s;
+  opacity: 1;
+}
+
+.room-card-large:hover .room-readmore,
+.room-card-large:focus .room-readmore,
+.room-card-small:hover .room-readmore,
+.room-card-small:focus .room-readmore {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.room-card-large:hover .room-readmore::after,
+.room-card-large:focus .room-readmore::after,
+.room-card-small:hover .room-readmore::after,
+.room-card-small:focus .room-readmore::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.room-readmore:hover,
+.room-readmore:focus {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media (max-width: 1300px) {
+  .rooms-list-cm {
+    flex-direction: column;
+    align-items: center;
+    gap: 1cm;
+  }
+  .room-card-large,
+  .room-card-small {
+    width: 98vw;
+    max-width: 100%;
+    height: 340px;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 600px) {
+  .rooms-section {
+    padding: 24px 0;
+  }
+  .rooms-title {
+    padding-left: 0;
+    text-align: center;
+    font-size: 1.7rem;
+    padding-top: 0;
+  }
+  .room-card-large,
+  .room-card-small {
+    width: 98vw !important;
+    height: 180px !important;
+    border-radius: 14px;
+  }
+  .room-overlay {
+    padding: 12px 7px 12px 12px;
+  }
+  .room-name {
+    font-size: 1.13rem;
+  }
+  .room-readmore {
+    font-size: 0.85rem;
+  }
+}
+/* Container around the third box and the button */
+.rooms-third-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Add some horizontal padding for spacing on larger screens */
+  padding-left: 1.5rem; /* approx 24px */
+}
+
+/* Button with responsive left margin as a percentage and max-width */
+.btn-view-all {
+  margin-top: 1.125rem; /* 18px */
+  margin-left: 30%; /* proportionally shifts right relative to container width */
+  max-width: 280px; /* prevent the button from becoming too wide on large screens */
+  padding: 0.75rem 2.25rem; /* 12px 36px */
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 24px;
+  border: 2px solid #000000;
+  text-decoration: none;  /* no underline */
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  display: inline-block;
+}
+
+/* Hover and focus styles */
+.btn-view-all:hover,
+.btn-view-all:focus {
+  background-color: #4b514d; /* dark background on hover */
+  color: #ffffff;            /* white text on hover */
+  border-color: #4b514d;     /* border matches background */
+  text-decoration: none;     /* no underline */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1300px) {
+  .rooms-third-column {
+    align-items: stretch;
+    padding-left: 0;
+  }
+  .btn-view-all {
+    margin-left: 0;
+    width: 100%;
+    max-width: none;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .btn-view-all {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.5rem;
+    margin-top: 1rem;
+  }
 }
