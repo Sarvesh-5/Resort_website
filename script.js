@@ -192,3 +192,46 @@ if (window.innerWidth <= 1024) {
     overlay.style.background = 'transparent';
   }
 }
+document.addEventListener('DOMContentLoaded', function () {
+  const animatedElements = document.querySelectorAll('.scroll-animate');
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        scrollObserver.unobserve(entry.target); // optional: only animate once
+      }
+    });
+  }, { threshold: 0.2 }); // adjust threshold for how much is visible
+
+  animatedElements.forEach(el => scrollObserver.observe(el));
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const title = document.querySelector('.facilities-title');
+  const facilities = document.querySelectorAll('.facility-box');
+
+  // Observer for heading
+  const titleObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        title.classList.add('visible');
+        titleObserver.unobserve(title);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  titleObserver.observe(title);
+
+  // Observer for facilities with staggered delay
+  const facilitiesObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = Array.from(facilities).indexOf(entry.target);
+        entry.target.style.transitionDelay = `${index * 0.3}s`;
+        entry.target.classList.add('visible');
+        facilitiesObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  facilities.forEach(facility => facilitiesObserver.observe(facility));
+});
