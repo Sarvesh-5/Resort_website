@@ -235,3 +235,251 @@ document.addEventListener('DOMContentLoaded', () => {
 
   facilities.forEach(facility => facilitiesObserver.observe(facility));
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const roomCards = document.querySelectorAll('.room-card-large, .room-card-small');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = Array.from(roomCards).indexOf(entry.target);
+        entry.target.style.transitionDelay = `${index * 0.3}s`; // 0.3s stagger per card
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  roomCards.forEach(card => observer.observe(card));
+});
+document.addEventListener('DOMContentLoaded', () => {
+  // Select title and subtitle elements
+  const roomsTitle = document.querySelector('.rooms-title');
+  const roomsSubtitle = document.querySelector('.rooms-subtitle');
+  
+  // Helper function for observing and revealing an element
+  function observeAndShow(element) {
+    if (element) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            element.classList.add('visible');
+            observer.unobserve(element);
+          }
+        });
+      }, { threshold: 0.55 });
+      observer.observe(element);
+    }
+  }
+  
+  // Observe both
+  observeAndShow(roomsTitle);
+  observeAndShow(roomsSubtitle);
+});
+document.addEventListener('DOMContentLoaded', function() {
+  const images = document.querySelectorAll('.local-amenity-img');
+  const texts = document.querySelectorAll('.local-amenity-text');
+  const offset = 300; // Adjust this for when animation triggers
+
+  function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+      rect.bottom >= offset
+    );
+  }
+
+  function checkElements() {
+    images.forEach(img => {
+      if (isInViewport(img)) {
+        img.classList.add('scale-up');
+      }
+    });
+    texts.forEach(text => {
+      if (isInViewport(text)) {
+        text.classList.add('visible');
+      }
+    });
+  }
+
+  // Initial check
+  checkElements();
+
+  // Listen for scroll events
+  window.addEventListener('scroll', checkElements);
+});
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const slidesCount = 3;
+  const dots = document.querySelectorAll('.dot');
+  const slideContainer = document.querySelector('.carousel-slide-container');
+
+  // Calculate slide width including margin
+  const firstSlide = slideContainer.children[0];
+  const slideStyle = window.getComputedStyle(firstSlide);
+  const slideWidth = firstSlide.offsetWidth + parseInt(slideStyle.marginLeft) + parseInt(slideStyle.marginRight);
+
+  // Clone first and last slides for infinite effect
+  const firstClone = slideContainer.children[0].cloneNode(true);
+  const lastClone = slideContainer.children[slidesCount - 1].cloneNode(true);
+
+  // Append and prepend clones
+  slideContainer.appendChild(firstClone);
+  slideContainer.insertBefore(lastClone, slideContainer.children[0]);
+
+  const totalSlides = slidesCount + 2;
+  slideContainer.style.width = `${totalSlides * slideWidth}px`;
+
+  let current = 1; // Start at the first real slide (index 1 due to prepended clone)
+  let startX = 0;
+  let currentTranslate = -slideWidth * current;
+  let prevTranslate = currentTranslate;
+  let isDragging = false;
+
+  const swipeThreshold = slideWidth / 4; // 25% swipe to trigger slide change
+
+  function updateActiveDot(idx) {
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+  }
+
+  function goToSlide(idx) {
+    slideContainer.style.transition = 'transform 0.3s ease-in-out';
+    currentTranslate = -slideWidth * idx;
+    prevTranslate = currentTranslate;
+    slideContainer.style.transform = `translateX(${currentTranslate}px)`;
+    current = idx;
+
+    // Update dots based on real slides index
+    updateActiveDot((current - 1 + slidesCount) % slidesCount);
+  }
+
+  dots.forEach((dot, idx) => {
+    dot.addEventListener('click', () => goToSlide(idx + 1));
+  });
+
+  // Handle transition end to jump without animation if at clone slide
+  slideContainer.addEventListener('transitionend', () => {
+    if (current === 0) {
+      slideContainer.style.transition = 'none';
+      current = slidesCount;
+      currentTranslate = -slideWidth * current;
+      prevTranslate = currentTranslate;
+      slideContainer.style.transform = `translateX(${currentTranslate}px)`;
+    } else if (current === slidesCount + 1) {
+      slideContainer.style.transition = 'none';
+      current = 1;
+      currentTranslate = -slideWidth * current;
+      prevTranslate = currentTranslate;
+      slideContainer.style.transform = `translateX(${currentTranslate}px)`;
+    }
+  });
+
+  slideContainer.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return; // only left mouse button
+    isDragging = true;
+    slideContainer.style.transition = 'none';
+    startX = e.pageX;
+  });
+
+  slideContainer.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // prevent scrolling
+    isDragging = true;
+    slideContainer.style.transition = 'none';
+    startX = e.touches[0].pageX;
+  });
+
+  slideContainer.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const currentX = e.pageX;
+    const diff = currentX - startX;
+    slideContainer.style.transform = `translateX(${prevTranslate + diff}px)`;
+    currentTranslate = prevTranslate + diff;
+  });
+
+  slideContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault(); // prevent scrolling
+    const currentX = e.touches[0].pageX;
+    const diff = currentX - startX;
+    slideContainer.style.transform = `translateX(${prevTranslate + diff}px)`;
+    currentTranslate = prevTranslate + diff;
+  });
+
+  function finishDrag(endX) {
+    const movedBy = endX - startX;
+
+    slideContainer.style.transition = 'transform 0.3s ease-in-out';
+
+    // Calculate how many slides to move: negative for left swipe, positive for right swipe
+    const movedSlides = Math.round(movedBy / slideWidth);
+
+    if (movedSlides !== 0) {
+      let nextSlide = current - movedSlides;
+
+      // Limit nextSlide within possible range (clones included)
+      if (nextSlide < 0) nextSlide = 0;
+      if (nextSlide > slidesCount + 1) nextSlide = slidesCount + 1;
+
+      goToSlide(nextSlide);
+    } else {
+      // Not moved enough, snap back to current
+      goToSlide(current);
+    }
+  }
+
+  slideContainer.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    finishDrag(e.pageX);
+  });
+
+  slideContainer.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    finishDrag(e.changedTouches[0].pageX);
+  });
+
+  slideContainer.addEventListener('mouseleave', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    finishDrag(e.pageX);
+  });
+
+  // Initialize carousel at first real slide
+  goToSlide(1);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const slideContainer = document.querySelector('.carousel-slide-container');
+  const slides = document.querySelectorAll('.highlight-slide');
+  const numSlides = slides.length;
+  const backgroundLayer = document.querySelector('.background-layer');
+  const dots = document.querySelectorAll('.carousel-dots .dot');
+
+  // Dynamically set container width
+  slideContainer.style.width = `${numSlides * 100}%`;
+
+  function updateDots(index) {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  // Automatic sliding removed
+
+  // Zoom out background slowly on vertical scroll
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const scale = Math.max(1 - scrollY / 2000, 0.8); // min scale 0.8
+    backgroundLayer.style.transform = `scale(${scale})`;
+  });
+});
