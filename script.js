@@ -483,3 +483,30 @@ document.addEventListener('DOMContentLoaded', () => {
     backgroundLayer.style.transform = `scale(${scale})`;
   });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const footer = document.querySelector('.footer');
+  const sections = document.querySelectorAll('.section-to-hide');
+
+  function checkScroll() {
+    const footerRect = footer.getBoundingClientRect();
+
+    // Show footer if it almost enters viewport
+    if (footerRect.top < window.innerHeight) {
+      footer.classList.add('visible');
+    } else {
+      footer.classList.remove('visible');
+    }
+
+    // Hide preceding sections as footer approaches
+    if (footerRect.top < window.innerHeight + 100) {
+      sections.forEach(sec => sec.classList.add('hidden'));
+    } else {
+      sections.forEach(sec => sec.classList.remove('hidden'));
+    }
+  }
+
+  window.addEventListener('scroll', checkScroll);
+  checkScroll(); // initial check on load
+});
