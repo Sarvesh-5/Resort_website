@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #2e2929; /* black screen */
+  background-color: #292b33; /* black screen */
   z-index: 9999;
   transform: translateY(0); /* starts in place */
   transition: transform 0.8s ease; /* smooth slide up */
