@@ -81,3 +81,23 @@ if (logo) {
     }
 
 });  // <-- Closing brace for the DOMContentLoaded function
+window.addEventListener("scroll", () => {
+  if (window.innerWidth <= 900) return;
+
+  const images = document.querySelectorAll(".room-showcase-image img");
+  if (!images.length) return;
+
+  const windowHeight = window.innerHeight;
+  const offset = 250;
+
+  images.forEach((image) => {
+    if (image.classList.contains("scale-up")) return; // skip if already scaled-up
+
+    const rect = image.getBoundingClientRect();
+
+    if (rect.top < windowHeight - offset && rect.bottom > offset) {
+      image.classList.add("scale-up"); // scale up once when scrolled enough
+    }
+  });
+});
+

@@ -2319,7 +2319,6 @@ padding-top: 4px;
 .footer {
   position: relative;
   width: 100%;
-  background: url('assets/images/elephant1.png') no-repeat center center fixed; /* Change path */
   background-size: cover;
   color: #f1f1f1;
   margin-top: 0;

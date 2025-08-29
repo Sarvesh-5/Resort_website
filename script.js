@@ -138,7 +138,25 @@ document.addEventListener('DOMContentLoaded', function () {
             dateFormat: 'd M Y'
         });
     }
+// ================== HERO FIXED BACKGROUND CONTROL ==================
+window.addEventListener("scroll", () => {
+    const hero = document.querySelector(".hero");
+    const video = document.querySelector(".hero-video");
+    const overlay = document.querySelector(".hero-overlay");
 
+    if (!hero || !video || !overlay) return;
+
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    const scrollY = window.scrollY;
+
+    if (scrollY + 1 >= heroBottom) {
+        video.style.visibility = "hidden";
+        overlay.style.visibility = "hidden";
+    } else {
+        video.style.visibility = "visible";
+        overlay.style.visibility = "visible";
+    }
+});
     // ================== SCROLL-ANIMATE ELEMENTS ==================
     const animatedElements = document.querySelectorAll(".scroll-animate");
     const scrollObserver = new IntersectionObserver((entries) => {
@@ -407,25 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goToSlide(1);
 });
 
-// ================== HERO FIXED BACKGROUND CONTROL ==================
-window.addEventListener("scroll", () => {
-    const hero = document.querySelector(".hero");
-    const video = document.querySelector(".hero-video");
-    const overlay = document.querySelector(".hero-overlay");
 
-    if (!hero || !video || !overlay) return;
-
-    const heroBottom = hero.offsetTop + hero.offsetHeight;
-    const scrollY = window.scrollY;
-
-    if (scrollY + 1 >= heroBottom) {
-        video.style.visibility = "hidden";
-        overlay.style.visibility = "hidden";
-    } else {
-        video.style.visibility = "visible";
-        overlay.style.visibility = "visible";
-    }
-});
 
 // ================== MASINAGUDI HIGHLIGHTS SCROLL ZOOM BACKGROUND ==================
 document.addEventListener('DOMContentLoaded', () => {
