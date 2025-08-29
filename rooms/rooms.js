@@ -88,7 +88,7 @@ window.addEventListener("scroll", () => {
   if (!images.length) return;
 
   const windowHeight = window.innerHeight;
-  const offset = 250;
+  const offset = 400;
 
   images.forEach((image) => {
     if (image.classList.contains("scale-up")) return; // skip if already scaled-up
@@ -100,4 +100,26 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+function handleMobileScroll() {
+  if (window.innerWidth > 600) return;
 
+  const cards = document.querySelectorAll(".mobile-room-card-box");
+  if (!cards.length) return;
+
+  const windowHeight = window.innerHeight;
+  const offset = 200;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const image = card.querySelector(".room-card-image");
+    const content = card.querySelector(".room-card-content");
+    const isVisible = rect.top < windowHeight - offset && rect.bottom > offset;
+
+    if (image) image.classList.toggle("mobile-scroll-visible", isVisible);
+    if (content) content.classList.toggle("mobile-scroll-visible", isVisible);
+  });
+}
+
+window.addEventListener("scroll", handleMobileScroll);
+window.addEventListener("touchmove", handleMobileScroll);
+window.addEventListener("DOMContentLoaded", handleMobileScroll);

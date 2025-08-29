@@ -1847,11 +1847,13 @@ padding-top: 4px;
   }
   .facility-box {
     padding: 30px 0;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* faster animation */
   }
   .facility-box:not(:last-child)::after {
     display: none;
   }
 }
+
 
 .marquee {
   position: relative;
@@ -1954,6 +1956,7 @@ padding-top: 4px;
   max-width: 470px;
 }
 
+
 /* Removed button styles since button is removed */
 
 /* Responsive tweaks */
@@ -1967,15 +1970,78 @@ padding-top: 4px;
   }
 }
 @media (max-width: 767px) {
+  /* Stack image and text vertically with spacing */
+  .row.align-items-center.mb-5 {
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  /* Adjust image size and margin for mobile */
+  .local-amenity-img {
+    width: 100%;
+    height: auto;   /* Let height adjust automatically to maintain aspect ratio */
+    max-height: 180px;
+    border-radius: 14px;
+    margin-top: 0;  /* Remove extra margin on top */
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+    transform: scale(1); /* Keep natural scale */
+  }
+
+  /* Text container full width with padding */
+  .local-amenity-text {
+    width: 100%;
+    padding: 15px 10px;
+    opacity: 1;               /* Ensure readable */
+    transform: translateY(0); /* reset any transform */
+  }
+
+  /* Increase label readability */
+  .local-amenities-label {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.15em;
+  }
+
+  /* Adjust title size for mobile */
+  .local-amenities-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  /* Paragraph styling */
+  .local-amenity-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 100%;
+    color: #555555;
+  }
+  
+  /* Remove transition/scale effects on mobile for better performance */
+ 
+}
+@media (max-width: 767px) {
+  /* Default: stack all rows with text first, image second */
   .row.align-items-center.mb-5 {
     flex-direction: column !important;
   }
-  .local-amenity-img {
-    height: 140px;
-    margin-top: 15px;
+
+  /* For the second row only, swap order: image first, then text */
+  .row.align-items-center.mb-5:nth-of-type(2) {
+    flex-direction: column !important;
   }
-  .local-amenity-text p {
-    max-width: 100%;
+  .row.align-items-center.mb-5:nth-of-type(2) > .col-lg-6:first-child {
+    order: 2; /* Move first child (text container) down */
+  }
+  .row.align-items-center.mb-5:nth-of-type(2) > .col-lg-6:last-child {
+    order: 1; /* Move last child (image) up */
+  }
+}
+@media (max-width: 768px) {
+  .local-amenities-section {
+    display: none !important;
   }
 }
 
@@ -2191,6 +2257,11 @@ padding-top: 4px;
     max-width: 100%;
   }
 }
+@media (max-width: 768px) {
+  .masinagudi-carousel-section {
+    display: none !important;
+  }
+}
 
 
 
@@ -2310,7 +2381,6 @@ padding-top: 4px;
     transform: translateX(-50%); /* scroll half because we duplicated slides */
   }
 }
-
 
 
 
@@ -2501,10 +2571,16 @@ padding-top: 4px;
 }
 
 @media (max-width: 600px) {
-  .gallery-preview {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 50px;
-    max-width: 160px;
-    gap: 6px;
+  .footer-gallery {
+    display: none !important;
   }
+  /* Assuming Explore is the second .footer-col inside .footer-cols-group */
+  .footer-cols-group .footer-col:first-child {
+    display: none !important;
+  }
+   .explore {
+    display: none !important;
+  }
+
 }
+
