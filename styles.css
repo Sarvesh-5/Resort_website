@@ -1,3 +1,8 @@
+
+
+body, html {
+  overflow-x: hidden; /* Prevent any horizontal scroll on the entire page */
+}
 /* Preloader default (covers the screen at start) */
 #preloader {
   position: fixed;
@@ -1581,6 +1586,44 @@ padding-top: 4px;
     max-width: none;
     text-align: center;
   }
+/* Rooms Section Heading Resize for Mobile */
+@media (max-width: 600px) {
+  .rooms-title {
+    font-size: 1.8rem; /* smaller heading on mobile */
+    padding-left: 0.69cm; /* keep alignment */
+  }
+
+  .rooms-subtitle {
+    font-size: clamp(0.85rem, 1vw, 1rem); /* smaller subtitle */
+    padding-left: 0.69cm; /* keep alignment */
+    margin-bottom: 0; /* remove excess spacing */
+  }
+}
+
+/* Button color, size, and alignment in mobile */
+@media (max-width: 600px) {
+  .btn-view-all {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    width: auto;
+    max-width: 150px; /* reduce length */
+    margin-top: 1rem;
+    margin-left: auto; /* push button to right */
+    display: block;
+    background-color: #978667; /* example: change to accent color */
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  /* Optional: Hover and focus styles for better UX */
+  .btn-view-all:hover,
+  .btn-view-all:focus {
+    background-color: #6e5a45; /* darker shade on hover */
+    color: #fff;
+    text-decoration: none;
+  }
+}
 
   /* Initial hidden state */
   .scroll-animate {
@@ -2382,6 +2425,13 @@ padding-top: 4px;
   }
 }
 
+/* Mobile devices: reduce .scroller-title font size */
+@media (max-width: 480px) {
+  .scroller-title {
+    font-size: 1.6rem; /* smaller heading on mobile */
+    margin-bottom: 20px; /* optionally reduce spacing */
+  }
+}
 
 
 
