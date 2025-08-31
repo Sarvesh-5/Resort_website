@@ -121,54 +121,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-const images = [
-    "/assets/images/cottages/whole4.jpg",
-  "/assets/images/cottages/1.jpg",
-  "/assets/images/cottages/2.jpg",
-  "/assets/images/cottages/3.jpg",
-  "/assets/images/cottages/4.jpg",
-  "/assets/images/cottages/5.jpg",
-  "/assets/images/cottages/7.jpg",
-  "/assets/images/cottages/8.jpg",
-  "/assets/images/cottages/whole1.png",
-  "/assets/images/cottages/whole2.jpg",
-  "/assets/images/cottages/whole3.jpg",
-
-];
+const track = document.querySelector('.gallery-track');
+const allImages = Array.from(track.querySelectorAll('img'));
+const images = allImages.map(img => img.src);
 
 let current = 0;
-const track = document.querySelector('.gallery-track');
 
-// Calculate slide distance: image width + gap (81px)
-const slideDistance = track.querySelector('img').offsetWidth + 81;
+// Calculate slide distance based on first image width + 81px gap
+const slideDistance = allImages[0].offsetWidth + 81;
 
 function renderGallery() {
   track.innerHTML = "";
-  // Left image (previous)
+
   const leftIdx = (current - 1 + images.length) % images.length;
-  // Center image
   const centerIdx = current;
-  // Right image (next)
   const rightIdx = (current + 1) % images.length;
 
-  // Left image
-  const leftImg = document.createElement('img');
-  leftImg.src = images[leftIdx];
-  leftImg.className = "gallery-image";
-  track.appendChild(leftImg);
-
-  // Center image
-  const centerImg = document.createElement('img');
-  centerImg.src = images[centerIdx];
-  centerImg.className = "gallery-image center";
-  track.appendChild(centerImg);
-
-  // Right image
-  const rightImg = document.createElement('img');
-  rightImg.src = images[rightIdx];
-  rightImg.className = "gallery-image";
-  track.appendChild(rightImg);
+  // Create left, center, right images
+  [leftIdx, centerIdx, rightIdx].forEach((idx, i) => {
+    const img = document.createElement("img");
+    img.src = images[idx];
+    img.className = "gallery-image";
+    if (i === 1) img.classList.add("center"); // center image gets 'center' class
+    track.appendChild(img);
+  });
 }
 
 function disableArrows() {
@@ -183,11 +159,9 @@ function enableArrows() {
 
 function slideLeft() {
   disableArrows();
-  // Slide right: translateX positive
   track.style.transition = "transform 0.5s ease";
   track.style.transform = `translateX(${slideDistance}px)`;
-
-  track.addEventListener('transitionend', onLeftSlideEnd, { once: true });
+  track.addEventListener("transitionend", onLeftSlideEnd, { once: true });
 }
 
 function onLeftSlideEnd() {
@@ -196,30 +170,25 @@ function onLeftSlideEnd() {
   current = (current - 1 + images.length) % images.length;
   renderGallery();
 
-  // Animate new center image scale and opacity
   const centerImg = track.querySelector('.gallery-image.center');
   if (centerImg) {
-    centerImg.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-    centerImg.style.transform = 'scale(1.0)';
-    centerImg.style.opacity = '1';
+    centerImg.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+    centerImg.style.transform = "scale(1.0)";
+    centerImg.style.opacity = "1";
 
-    // Optional: clean up the transition after it ends
     centerImg.addEventListener('transitionend', () => {
-      centerImg.style.transition = '';
+      centerImg.style.transition = "";
     }, { once: true });
   }
 
   enableArrows();
 }
 
-
 function slideRight() {
   disableArrows();
-  // Slide left: translateX negative
   track.style.transition = "transform 0.5s ease";
   track.style.transform = `translateX(-${slideDistance}px)`;
-
-  track.addEventListener('transitionend', onRightSlideEnd, { once: true });
+  track.addEventListener("transitionend", onRightSlideEnd, { once: true });
 }
 
 function onRightSlideEnd() {
@@ -230,22 +199,21 @@ function onRightSlideEnd() {
 
   const centerImg = track.querySelector('.gallery-image.center');
   if (centerImg) {
-    
-    centerImg.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-    centerImg.style.transform = 'scale(1.05)';
-    centerImg.style.opacity = '1';
+    centerImg.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+    centerImg.style.transform = "scale(1.05)";
+    centerImg.style.opacity = "1";
 
     centerImg.addEventListener('transitionend', () => {
-      centerImg.style.transition = '';
+      centerImg.style.transition = "";
     }, { once: true });
   }
 
   enableArrows();
 }
 
-
+// Attach event listeners for arrows
 document.querySelector('.gallery-arrow-left').addEventListener('click', slideLeft);
 document.querySelector('.gallery-arrow-right').addEventListener('click', slideRight);
 
-// Initial render
+// Initial gallery rendering
 renderGallery();

@@ -1768,8 +1768,8 @@ padding-top: 4px;
 .hotelicon-play:before {
   content: '\0054'; /* assuming this is kitchen/food */
 }
-.hotelicon-dog:before {
-  content: '\0050'; /* assuming this is kitchen/food */
+.customicon-wifi:before {
+  content: '\0053'; /* assuming this is kitchen/food */
 }
 
 /* Facilities section styling */

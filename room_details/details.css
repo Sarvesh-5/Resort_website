@@ -527,6 +527,162 @@ body {
   margin-left: 90px;           /* Further increase space from left column */
 }
 
+.details-checkinout {
+  margin-top: 18px;
+  background: #f9f7f1;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 320px;
+  box-shadow: 0 2px 10px rgba(140, 116, 47, 0.1);
+  font-family: 'Poppins', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Mobile view: extend the box width */
+@media (max-width: 480px) {
+  .details-checkinout {
+    max-width: 90vw; /* extend box to nearly full width on mobile */
+    padding: 16px 20px;
+  }
+}
+
+.details-checkinout {
+  margin-top: 18px;
+  background: #f9f7f1;
+  border-radius: 8px;
+  padding: 16px 24px;
+  max-width: 390px;
+  box-shadow: 0 2px 10px rgba(140, 116, 47, 0.1);
+  font-family: 'Poppins', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.checkinout-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #978667;
+  position: relative;
+  padding-right: 50px; /* reserve space for separation dots */
+}
+
+.checkinout-label {
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
+/* Dots between label and time */
+.checkinout-row::after {
+  position: absolute;
+  left: calc(120px + 8px);
+  right: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ccc7b3;
+  font-weight: 400;
+  pointer-events: none;
+  user-select: none;
+}
+
+.checkinout-time {
+  font-weight: 700;
+  color: #333;
+  flex-shrink: 0;
+}
+
+/* Move check-in time left by reducing padding on first row */
+.details-checkinout .checkinout-row:first-child {
+  padding-right: 40px; /* reduce right padding */
+}
+
+/* Adjust dotted line width for check-in row */
+.details-checkinout .checkinout-row:first-child::after {
+  right: 50px; /* make dotted line shorter on right side */
+}
+
+/* Move check-in time more left */
+.details-checkinout .checkinout-row:first-child .checkinout-time {
+  margin-left: -20px; /* shift time left */
+}
+
+/* Tablet view adjustments */
+@media (max-width: 900px) {
+  .details-checkinout {
+    max-width: 280px;
+    padding: 14px 20px;
+  }
+
+  .checkinout-row {
+    font-size: 1rem;
+    padding-right: 40px;
+  }
+
+  .checkinout-label {
+    min-width: 110px;
+  }
+
+  .checkinout-row::after {
+    left: calc(110px + 8px);
+    right: 50px;
+  }
+
+  .details-checkinout .checkinout-row:first-child {
+    padding-right: 35px;
+  }
+
+  .details-checkinout .checkinout-row:first-child::after {
+    right: 45px;
+  }
+
+  .details-checkinout .checkinout-row:first-child .checkinout-time {
+    margin-left: -15px;
+  }
+}
+
+/* Mobile view adjustments */
+@media (max-width: 480px) {
+  .details-checkinout {
+    max-width: 95vw;  /* bigger box on mobile */
+    padding: 16px 20px;
+    margin-top: 20px;
+  }
+
+  .checkinout-row {
+    font-size: 0.9rem;
+    padding-right: 35px;
+  }
+
+  .checkinout-label {
+    min-width: 90px;
+  }
+
+  .checkinout-row::after {
+    left: calc(90px + 6px);
+    right: 40px;
+  }
+
+  .details-checkinout .checkinout-row:first-child {
+    padding-right: 30px;
+  }
+
+  .details-checkinout .checkinout-row:first-child::after {
+    right: 35px;
+  }
+
+  .details-checkinout .checkinout-row:first-child .checkinout-time {
+    margin-left: -10px;
+  }
+}
+
+
+
+
 .amenities-list {
   width: 100%;
   display: grid;
