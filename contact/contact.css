@@ -1,39 +1,105 @@
-/* Reset & Base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body,
-html {
-  height: 100%;
-  background-color: #f1f3f0; /* Subtle soft background */
-  color: #070707;
-  font-size: 1rem;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* Navbar */
+/* ===== NAVIGATION BAR ===== */
 .navbar {
-  background-color: #4b5142;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   padding: 15px 0;
-  box-shadow: none;
-  position: relative;
+  z-index: 1001;
+  background: #fff; /* Changed from transparent to white */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05); /* subtle shadow by default */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
+
+/* Scroll or menu open effect: slightly darker shadow for subtle depth */
+.navbar.scrolled,
+.navbar.menu-open {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Navbar text colors: black by default and on scroll/menu */
+.navbar .nav-logo-text.special-stack > span:first-child,
+.navbar .nav-logo-sub,
+.navbar .logo-valley,
+.navbar .nav-links a {
+  color: #222; /* black text */
+  transition: color 0.3s ease;
+}
+
+/* Navbar hover/focus links color */
+.navbar .nav-links a:hover,
+.navbar .nav-links a:focus {
+  color: #4b5142; /* same accent color as scroll hover */
+}
+
+/* "Book Now" button default and hover colors */
+.book-now-btn {
+  background-color: #4b5142;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.55rem 1.8rem;
+  border-radius: 28px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  margin-left: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: background-color 0.2s ease;
+  height: 44px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Button hover */
+.book-now-btn:hover,
+.book-now-btn:focus {
+  background-color: #6b6f5d;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+/* Hamburger toggle spans default and on scroll/menu */
+.navbar .nav-toggle span {
+  background: #222; /* dark by default for visibility on white navbar */
+  transition: background 0.3s;
+}
+
+/* Navbar container and alignment */
 .nav-container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 8px;
+  padding-left: 0 !important;
   display: flex;
   align-items: center;
 }
 
+/* Logo and subtext */
 .nav-left {
-  margin-right: auto;
+  margin-left: -55px; /* Move the logo further left */
+}
+@media (max-width: 992px) {
+  .nav-left {
+    margin-left: 15px !important;   /* reset negative margin for small screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav-container {
+    padding-left: 16px;
+  }
+}
+@media (min-width: 993px) {
+  .nav-container {
+    padding-left: 0;
+  }
 }
 
 .nav-logo-text.special-stack {
@@ -42,52 +108,66 @@ html {
   align-items: flex-start;
   text-decoration: none;
   line-height: 1;
-  color: #fff;
+  margin-left: 0 !important;
 }
-
 .nav-logo-text.special-stack > span:first-child {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.1rem;
   font-weight: 700;
+  color: #222; /* black */
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
-
 .logo-valley {
-  font-weight: 900;
-  color: #a4ad7e;
+  position: relative;
+  display: inline-block;
 }
-
 .nav-logo-sub {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.18rem;
-  color: #a4ad7e;
+  color: #222; /* black */
   font-weight: 400;
   letter-spacing: 0.14em;
-  margin-left: 63px;
+  margin-left: 79px;
+}
+.nav-logo-text:hover,
+.nav-logo-text:focus {
+  text-decoration: none;
 }
 
+/* Navigation right section */
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Navigation links */
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 28px;
 }
 
+/* Links style */
 .nav-links a {
   font-family: 'Poppins', Arial, sans-serif;
+  position: relative;
   font-size: 1.1rem;
   text-decoration: none;
   font-weight: 500;
-  color: #fff;
-  position: relative;
+  color: #222; /* black */
   transition: color 0.3s;
+  overflow: visible;
 }
 
-.nav-links a.active,
+/* Hover effect on links */
 .nav-links a:hover {
-  color: #6b6c66;
+  color: #4b5142;
 }
 
-.nav-links a::after {
+/* Underline effect only on links except Book Now */
+.nav-links a:not(.book-now-btn)::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -96,102 +176,396 @@ html {
   transform-origin: center;
   height: 2px;
   width: 80%;
-  background: #a4ad7e;
+  background: #222;
   border-radius: 2px;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1;
   transition: transform 0.32s cubic-bezier(.39,.575,.565,1), background 0.26s;
 }
-
-.nav-links a.active::after,
-.nav-links a:hover::after {
+.nav-links a:not(.book-now-btn):hover::after,
+.nav-links a:not(.book-now-btn):focus::after {
   transform: translateX(-50%) scaleX(1);
+  opacity: 1;
 }
+
+/* Remove underline from Book Now button */
+.nav-links a.book-now-btn::after {
+  display: none !important;
+}
+
+/* Responsive styling for hamburger and mobile menu toggling remains unchanged */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  margin-right: 16px;
+}
+.nav-toggle span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: #222;
+  transition: background 0.3s;
+}
+
+@media (max-width: 992px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+}
+@media (min-width: 993px) {
+  .nav-toggle { display: none !important; }
+  .nav-links, .nav-cta { display: flex !important; }
+}
+@media (max-width: 992px) {
+  .nav-toggle {
+    margin-right: 16px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    right: 0;
+  }
+  .nav-toggle span {
+    width: 32px;
+    height: 3px;
+  }
+}
+
 
 /* Container */
+/* Assuming your navbar height is about 60px, add a top margin to container */
 .container {
-  max-width: 700px;
-  margin: 5rem auto;
-  background: white;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 2.5rem 3rem;
+  max-width: 800px; /* Slightly wider than 700px before */
+  margin: calc(60px + 2rem) auto 2rem auto; /* top margin = navbar height + 2rem spacing */
+  padding: 1.5rem 2rem 1.5rem 2rem; /* Padding increased horizontally */
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
 }
 
-/* Contact Form Styling */
+/* Adjust heading sizes */
 h1 {
-  font-weight: 600;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #4b5142;
   text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.9rem; /* Slight increase */
+  font-weight: bold;
 }
 
+/* Subtitle styling */
 .subtitle {
   text-align: center;
-  font-weight: 400;
+  margin-bottom: 1.5rem;
+  color: #555;
   font-size: 1rem;
-  color: #6b6c66;
-  margin-bottom: 2rem;
+}
+
+.contact-content {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 form {
+  flex: 1 1 350px; /* Slightly increase min width */
   display: flex;
   flex-direction: column;
+  padding-bottom: 1.25rem;
 }
 
 label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #4b5142;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  margin-top: 0.75rem;
+  font-size: 1rem;
 }
 
-input[type='text'],
-input[type='email'],
+input[type="text"],
+input[type="email"],
+input[type="tel"],
 textarea {
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
-  border: 1.5px solid #d1d3ce;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
   resize: vertical;
-}
-
-input[type='text']:focus,
-input[type='email']:focus,
-textarea:focus {
-  border-color: #4b5142;
-  outline: none;
-  box-shadow: 0 0 7px rgba(75, 81, 66, 0.5);
+  min-height: 40px;
 }
 
 textarea {
-  min-height: 150px;
+  min-height: 100px;
 }
 
-button {
-  background-color: #4b5142;
-  color: white;
-  font-weight: 600;
-  padding: 0.9rem;
+button[type="submit"] {
+  margin-top: 1.25rem;
+  padding: 0.75rem;
   border: none;
-  border-radius: 30px;
-  cursor: pointer;
+  background-color: #447744;
+  color: white;
   font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #6b6c66;
+button[type="submit"]:hover {
+  background-color: #335533;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+.resort-info {
+  flex: 1 1 320px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.resort-info h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.resort-info p {
+  margin: 0.5rem 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
   .container {
-    margin: 3rem 1rem;
-    padding: 2rem;
+    max-width: 90vw; /* Make container fluid on small screens */
+    margin-top: calc(60px + 1rem);
+    padding: 1.25rem 1.25rem;
   }
 
-  h1 {
-    font-size: 2rem;
+  .contact-content {
+    flex-direction: column;
+  }
+  
+  form,
+  .resort-info {
+    flex: 1 1 100%;
+  }
+}
+
+
+/* Footer base styles */
+/* Footer background image and dim effect */
+.footer {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  color: #f1f1f1;
+  margin-top: 0;
+  z-index: 1;
+  padding: 40px 24px 24px 24px; /* Reduced bottom padding for less height */
+  box-sizing: border-box;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif; /* Updated font */
+}
+
+/* Footer overlay background and blur */
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,20,30,0.92); /* overlay darkness */
+  backdrop-filter: blur(2px); /* subtle blur */
+  z-index: 1;
+}
+
+/* Footer content container */
+.footer-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0; /* removed additional padding */
+  font-family: inherit; /* inherit font from footer */
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  justify-content: space-between;
+  font-family: inherit;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 210px;
+  font-family: inherit;
+}
+
+.footer h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 22px;
+  font-family: inherit;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  font-family: inherit;
+}
+.footer-col ul li {
+  margin-bottom: 12px;
+  font-family: inherit;
+}
+.footer-col ul li a {
+  color: #eee;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+  font-family: inherit;
+}
+.footer-col ul li a:hover {
+  color: #ffd65a;
+}
+
+.footer-contact-main {
+  color: #ffd65a;
+  font-weight: 500;
+  margin: 14px 0 18px 0;
+  font-family: inherit;
+}
+
+.footer-social {
+  margin-top: 16px;
+  font-family: inherit;
+}
+.footer-social a {
+  display: inline-block;
+  background: #212532;
+  color: #ffd65a;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  font-size: 1.3rem;
+  margin-right: 10px;
+  transition: background 0.3s, color 0.3s;
+  font-family: inherit;
+}
+.footer-social a:hover {
+  background: #ffd65a;
+  color: #212532;
+}
+
+/* Gallery Collage Grid */
+.gallery-preview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 70px;
+  gap: 10px;
+  max-width: 320px;
+  padding: 10px 0;
+  position: relative;
+  font-family: inherit;
+}
+
+/* Collage pattern varied spans */
+.gallery-preview a:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gallery-preview a:nth-child(2) { grid-column: span 1; grid-row: span 1; }
+.gallery-preview a:nth-child(3) { grid-column: span 1; grid-row: span 1; }
+.gallery-preview a:nth-child(4) { grid-column: span 2; grid-row: span 1; }
+.gallery-preview a:nth-child(5),
+.gallery-preview a:nth-child(6),
+.gallery-preview a:nth-child(7),
+.gallery-preview a:nth-child(8),
+.gallery-preview a:nth-child(9) {
+  grid-column: span 1; grid-row: span 1;
+}
+
+/* Position anchors for z-index on hover */
+.gallery-preview a {
+  position: relative;
+  z-index: 0;
+  transition: z-index 0s;
+  font-family: inherit;
+}
+
+/* Style gallery images */
+.gallery-preview a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s cubic-bezier(.6, -.28, .74, .85);
+  cursor: pointer;
+  display: block;
+  position: relative;
+  z-index: 0;
+  font-family: inherit;
+}
+
+/* Hover enlarge and overlay */
+.gallery-preview a:hover {
+  z-index: 1000;
+}
+.gallery-preview a:hover img {
+  transform: scale(2.2) translateY(-5px);
+  box-shadow: 0 16px 48px rgba(30,30,60,0.25);
+  transition-delay: 0s;
+}
+
+.footer-bottom-bar {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 10px 0 0 0; /* top padding only, no bottom padding */
+  text-align: center;
+  color: #ccc;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  box-sizing: border-box;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
+
+/* Remove any bottom padding/margin on .footer */
+.footer {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .footer-row { flex-direction: column; gap: 26px; }
+  .footer-container { padding: 20px 8px 0 8px; }
+  .footer-bottom-bar { margin-top: 36px; padding-bottom: 16px; }
+}
+
+@media (max-width: 600px) {
+  .footer-gallery {
+    display: none !important;
+  }
+  /* Assuming Explore is the second .footer-col inside .footer-cols-group */
+  .footer-cols-group .footer-col:first-child {
+    display: none !important;
+  }
+  .explore {
+    display: none !important;
   }
 }

@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('.booking-form');
     const ctaBtn = document.querySelector('.booking-form .bf-cta, .booking-form #check-availability');
     const dateInput = document.querySelector('#date-range');
+    
 
     // Counter buttons (+/-) logic for Adults and Children fields in booking form
     document.querySelectorAll('.booking-form .plus, .booking-form .minus').forEach(btn => {
@@ -195,6 +196,7 @@ if (window.innerWidth <= 1024) {
 document.addEventListener('DOMContentLoaded', () => {
     const roomsTitle = document.querySelector('.rooms-title');
     const roomsSubtitle = document.querySelector('.rooms-subtitle');
+    const offset = 300; // Trigger animation 300px before element enters viewport
 
     function observeAndShow(element) {
         if (element) {
@@ -205,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         observer.unobserve(element);
                     }
                 });
-            }, { threshold: 0.55 });
+            }, { rootMargin: `0px 0px -${offset}px 0px`, threshold: 0 });
             observer.observe(element);
         }
     }
@@ -214,9 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
     observeAndShow(roomsSubtitle);
 });
 
-// Animate room cards with stagger effect
 document.addEventListener('DOMContentLoaded', () => {
     const roomCards = document.querySelectorAll('.room-card-large, .room-card-small');
+    const offset = 200; // Trigger animation 300px early
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -227,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { rootMargin: `0px 0px -${offset}px 0px`, threshold: 0 });
 
     roomCards.forEach(card => observer.observe(card));
 });
