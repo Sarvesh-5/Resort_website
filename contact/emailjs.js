@@ -1,7 +1,3 @@
-// Load EmailJS SDK (add this <script> tag in your HTML before using this script)
-// <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-// Initialize EmailJS with your public key
 emailjs.init('_JkFiZSL4P4Y4auxY');
 
 document.getElementById('contact-form').addEventListener('submit', function(event) {
@@ -9,9 +5,17 @@ document.getElementById('contact-form').addEventListener('submit', function(even
 
   emailjs.sendForm('service_ydscscr', 'template_b9xyr17', this)
     .then(() => {
-      alert('Message sent successfully!');
       this.reset(); // Optionally clear the form fields
+      showSuccessPopup();
     }, (error) => {
       alert('Failed to send message: ' + error.text);
     });
 });
+
+function showSuccessPopup() {
+  var popup = document.getElementById('success-popup');
+  popup.classList.add('show');
+  setTimeout(function() {
+    popup.classList.remove('show');
+  }, 3000); // Popup visible for 3.4 seconds
+}

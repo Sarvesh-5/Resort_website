@@ -16,8 +16,9 @@ body, html {
 }
 
 body {
-    font-family: 'Montserrat', Helvetica, sans-serif;
+  font-family: 'Montserrat', Helvetica, sans-serif;
 }
+
 /* ===== NAVIGATION BAR ===== */
 .navbar {
   position: fixed;
@@ -133,9 +134,11 @@ body {
   display: flex;
   align-items: center; /* Ensures vertical centering */
   gap: 28px;
+  position: relative;
 }
 
-/* Underline effect only for nav links except Book Now button */
+/* Underline effect on nav links except Book Now button */
+/* Default: White underline on transparent navbar */
 .nav-links a:not(.book-now-btn)::after {
   content: "";
   position: absolute;
@@ -153,8 +156,23 @@ body {
   transition: transform 0.32s cubic-bezier(.39,.575,.565,1), background 0.26s;
 }
 
+/* White underline visible on hover/focus for transparent navbar */
 .nav-links a:not(.book-now-btn):hover::after,
 .nav-links a:not(.book-now-btn):focus::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+  background: #fff;
+}
+
+/* Dark underline on scrolled navbar */
+.navbar.scrolled .nav-links a:not(.book-now-btn)::after {
+  background: #222;
+}
+
+/* Dark underline visible on hover/focus when scrolled */
+.navbar.scrolled .nav-links a:not(.book-now-btn):hover::after,
+.navbar.scrolled .nav-links a:not(.book-now-btn):focus::after {
+  background: #4b5142;
   transform: translateX(-50%) scaleX(1);
   opacity: 1;
 }
@@ -175,10 +193,12 @@ body {
   overflow: visible;
 }
 
+/* Link color on transparent navbar */
 .nav-links a:hover {
   color: #fffefe;
 }
 
+/* Link color on scrolled navbar */
 .navbar.scrolled .nav-links a {
   color: #222;
 }
@@ -213,7 +233,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #4b5142;
-  color: #fff;
+  color: #fff !important;
   font-weight: 600;
   font-size: 1.05rem;
   padding: 0.55rem 1.8rem;
@@ -233,7 +253,7 @@ body {
 .book-now-btn:hover,
 .book-now-btn:focus {
   background-color: #6b6f5d;
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
 }
 
@@ -276,6 +296,12 @@ body {
   height: 2px;
   background: #fff;
   transition: background 0.3s;
+}
+
+/* Dark toggle color on scrolled */
+.navbar.scrolled .nav-toggle span,
+.navbar.menu-open .nav-toggle span {
+  background: #222;
 }
 
 /* ===== MOBILE MENU ===== */
@@ -354,34 +380,6 @@ body {
     height: 3px;
   }
 }
-
-
-/* Keep Book Now button text white always */
-.book-now-btn {
-  color: #fff !important;
-}
-
-/* Prevent color change on scroll and menu open for Book Now */
-.navbar.scrolled .book-now-btn,
-.navbar.menu-open .book-now-btn {
-  color: #fff !important;           /* keep white text */
-  background-color: #4b5142 !important; /* keep original background */
-  transition: background 0.2s;
-}
-
-.navbar.scrolled .book-now-btn:hover,
-.navbar.menu-open .book-now-btn:hover {
-  background-color: #6b6f5d !important; /* keep hover background */
-  color: #fff !important;                /* keep hover text white */
-}
-
-/* Hamburger toggle spans stay dark to be visible, do not affect Book Now */
-.navbar.scrolled .nav-toggle span,
-.navbar.menu-open .nav-toggle span {
-  background: #222;
-}
-
-
 
 
 /* ===== HERO SECTION ===== */

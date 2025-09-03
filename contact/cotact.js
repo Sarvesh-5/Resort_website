@@ -1,8 +1,3 @@
-// ===== Preloader hides after page load =====
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  if (preloader) preloader.classList.add('hide'); // Hide preloader by adding 'hide' class
-});
 
 document.addEventListener('DOMContentLoaded', function () {
 
