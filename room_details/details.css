@@ -20,6 +20,7 @@ body {
   font-family: 'Montserrat', Helvetica, sans-serif;
 }
 
+
 /* ===== NAVIGATION BAR ===== */
 .navbar {
   position: fixed;
@@ -381,7 +382,6 @@ body {
     height: 3px;
   }
 }
-
 
 
 /* ================================================================================================== */
