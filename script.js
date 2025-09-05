@@ -111,9 +111,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 `Booking Request:%0A🛎 Check-in: ${ci}` +
                 `%0A🏨 Check-out: ${co}` +
                 `%0A👥 Guests: ${adults} adult(s), ${children} child(ren)` +
-                `%0APlease call me to confirm.`;
+                `%0ACall me to confirm.`;
 
-            const phoneNumber = "919943197263";
+            const phoneNumber = "919944223365";
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 
             const host = form.closest('.hero-content') || form.parentElement || document.body;
